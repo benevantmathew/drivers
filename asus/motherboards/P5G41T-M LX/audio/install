@@ -1,0 +1,101 @@
+#!/bin/sh
+
+######## VERSION 1.0 ########
+
+KERNEL_VER=`uname -r`
+
+. ./version
+
+echo ".....Decompress Driver source v1.0.19-$ver"
+tar xvpfj alsa-driver-1.0.19-$ver.tar.bz2 > /dev/null 2>&1
+echo ".....Decompress ALSA Library source v1.0.19"
+tar xvpfj alsa-lib-1.0.19.tar.bz2 > /dev/null 2>&1
+echo ".....Decompress ALSA Utility v1.0.19"
+tar xvpfj alsa-utils-1.0.19.tar.bz2 >/dev/null 2>&1
+#echo ".....Decompress XRealMixer v0.5"
+#tar xvpfj xrmix-0.5.tar.bz2 > /dev/null 2>&1
+sync
+
+echo "Remove old sound driver"
+if [ -d /lib/modules/$KERNEL_VER/kernel/sound ]; then
+   rm -rf /lib/modules/$KERNEL_VER/kernel/sound/pci > /dev/null 2>&1
+   rm -rf /lib/modules/$KERNEL_VER/kernel/sound/acore > /dev/null 2>&1
+   rm -rf /lib/modules/$KERNEL_VER/kernel/sound/core > /dev/null 2>&1
+fi
+
+## remove driver modules
+if [ -f /etc/rc.d/init.d/alsasound ]; then
+   /etc/init.d/alsasound stop
+   rmmod snd-page-alloc > /dev/null 2>&1 
+   rmmod soundcore > /dev/null 2>&1
+fi
+
+sleep 2
+
+echo "Compile Driver........"
+cd alsa-driver-1.0.19-$ver
+./configure --with-cards=hda-intel 
+make
+make install
+./snddevices
+cd ..
+
+## for x86
+echo "Remove old alsa library"
+rm -rf /lib/libasound.* > /dev/null 2>&1 
+rm -rf /lib64/libasound.* > /dev/null 2>&1 
+rm -rf /usr/lib/libasound.* > /dev/null 2>&1 
+rm -rf /usr/lib64/libasound.* > /dev/null 2>&1
+
+echo "Compile ALSA Library....."
+cd alsa-lib-1.0.19
+./configure
+make
+make install
+cd ..
+
+echo "Compile ALSA Utility......"
+cd alsa-utils-1.0.19
+./configure
+make
+make install
+cd ..
+
+#echo "Comiple XrealMixer......"
+#cd ./
+
+## for x86_64
+if [ -d /usr/lib64 ]; then
+  cp -lf /usr/lib/libasound.* /usr/lib64
+  cp -lf /usr/lib/pkgconfig/alsa.pc /usr/lib64/pkgconfig
+  ldconfig -n /usr/lib64
+fi
+
+sleep 1
+
+## del audio stat file
+if [ -f /etc/asound.state ]; then
+   rm -rf /etc/asound.state > /dev/null 2>&1
+fi
+
+## alsa driver sndstat file relink
+rm -rf /dev/sndstat > /dev/null 2>&1
+ln -s /proc/asound/oss/sndstat /dev/sndstat
+
+## sample wave
+if [ -d /usr/share/sounds/alsa ]; then
+     bzip2 -d test.wav.bz2
+     cp -f test.wav /usr/share/sounds/alsa
+     bzip2 test.wav
+else
+     mkdir /usr/share/sounds/alsa
+     bzip2 -d test.wav.bz2
+     cp -f test.wav /usr/share/sounds/alsa
+     bzip2 test.wav
+fi
+
+echo "Remove Folder....."
+rm -rf alsa-driver-1.0.19-$ver > /dev/null
+rm -rf alsa-lib-1.0.19 > /dev/null
+rm -rf alsa-utils-1.0.19 > /dev/null
+alsaconf
