@@ -146,7 +146,7 @@ EXTRA_CFLAGS += $(shell [ -f $(KSRC)/include/linux/modversions.h ] && \
             echo "-DMODVERSIONS -DEXPORT_SYMTAB \
                   -include $(KSRC)/include/linux/modversions.h")
 
-EXTRA_CFLAGS += $(CFLAGS_EXTRA)
+EXTRA_CFLAGS += $(CFLAGS_EXTRA) -fno-pie
 
 RHC := $(KSRC)/include/linux/rhconfig.h
 ifneq (,$(wildcard $(RHC)))
@@ -169,10 +169,10 @@ endif
 
 KKVER := $(shell echo $(KVER) | \
          awk '{ if ($$0 ~ /2\.[4-9]\./) print "1"; else print "0"}')
-ifeq ($(KKVER), 0)
-  $(error *** Aborting the build. \
-          *** This driver is not supported on kernel versions older than 2.4.0)
-endif
+# ifeq ($(KKVER), 0)
+#   $(error *** Aborting the build. \
+#           *** This driver is not supported on kernel versions older than 2.4.0)
+# endif
 
 # set the install path
 INSTDIR := /lib/modules/$(KVER)/kernel/drivers/net/$(DRIVER_NAME)
