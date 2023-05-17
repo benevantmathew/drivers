@@ -1,0 +1,1 @@
+patch --verbose --dry-run --ignore-whitespace --fuzz 3 < /home/benevantmathew/github/public/drivers/asus/motherboards/P5G41T-M-LX/lan/ubuntu/AR81Family-linux-v1.0.1.10/atl1e.patch
