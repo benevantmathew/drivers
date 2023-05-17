@@ -267,7 +267,31 @@ default:
 	$(MAKE)
 
 endif # ifeq ($(K_VERSION),2.6)
+###########################################################################
+# 6.3.x Specific rules
+ifeq ($(K_VERSION), 6.3) # ifeq ($(K_VERSION),6.3)
 
+# Makefile for 6.3.x kernel
+TARGET = $(DRIVER_NAME).ko
+
+# man page
+MANSECTION = 7
+MANFILE = $(TARGET:.ko=.$(MANSECTION))
+
+ifneq ($(PATCHLEVEL),)
+EXTRA_CFLAGS += $(CFLAGS_EXTRA)
+obj-m += $(DRIVER_NAME).o
+$(DRIVER_NAME)-objs := $(CFILES:.c=.o)
+else
+default:
+ifeq ($(KOBJ),$(KSRC))
+	$(MAKE) -C $(KSRC) SUBDIRS=$(shell pwd) modules
+else
+	$(MAKE) -C $(KSRC) O=$(KOBJ) SUBDIRS=$(shell pwd) modules
+endif
+endif
+endif # ifeq ($(K_VERSION),6.3)
+###########################################################################
 ifeq (,$(MANDIR))
   # find the best place to install the man page
   MANPATH := $(shell (manpath 2>/dev/null || echo $MANPATH) | sed 's/:/ /g')
