@@ -1,0 +1,5 @@
+#copy ucode files to /lib/firmware
+
+sudo systemctl enable bluetooth
+sudo systemctl restart bluetooth
+sudo systemctl start bluetooth
