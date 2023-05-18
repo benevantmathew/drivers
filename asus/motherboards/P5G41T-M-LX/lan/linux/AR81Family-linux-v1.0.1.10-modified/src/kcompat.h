@@ -22,7 +22,7 @@
 #define _KCOMPAT_H_
 
 #include <linux/version.h>
-#include <linux/init.h>
+#include <include/linux/init.h>
 #include <linux/types.h>
 #include <linux/errno.h>
 #include <linux/module.h>

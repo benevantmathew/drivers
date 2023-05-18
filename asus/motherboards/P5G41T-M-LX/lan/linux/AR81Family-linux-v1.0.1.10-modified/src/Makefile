@@ -46,7 +46,7 @@ DRIVER_NAME = atl1e
 #         /usr/src/kernel-source-$(BUILD_KERNEL) \
 #         /usr/src/linux-$($(BUILD_KERNEL) | sed 's/\([0-9]*\.[0-9]*\)\..*/\1/') \
 #         /usr/src/linux
-KSP :=  /usr/src/linux-$(BUILD_KERNEL)-source
+KSP :=  /home/benevantmathew/kernelbuild/linux-6.3.3
 
 # prune the list down to only values that exist
 # and have an include/linux sub-directory
