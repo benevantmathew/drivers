@@ -22,12 +22,9 @@
 /* ethtool support for at */
 
 #include <linux/netdevice.h>
-
 #ifdef SIOCETHTOOL
 #include <linux/ethtool.h>
-
 #include "atl1e.h"
-
 #ifdef ETHTOOL_OPS_COMPAT
 #include "kcompate_ethtool.c"
 #endif
@@ -40,8 +37,10 @@ extern void atl1e_down(struct atl1e_adapter *adapter);
 extern void atl1e_reinit_locked(struct atl1e_adapter *adapter);
 extern s32 atl1e_reset_hw(struct atl1e_hw *hw);
 
-static int
-atl1e_get_settings(struct net_device *netdev, struct ethtool_cmd *ecmd)
+static int atl1e_get_settings(
+    struct net_device *netdev,
+    struct ethtool_cmd *ecmd
+)
 {
     struct atl1e_adapter *adapter = netdev_priv(netdev);
     struct atl1e_hw *hw = &adapter->hw;

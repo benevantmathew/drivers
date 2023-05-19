@@ -22,7 +22,7 @@
 #define _KCOMPAT_H_
 
 #include <linux/version.h>
-#include <include/linux/init.h>
+#include <linux/init.h>
 #include <linux/types.h>
 #include <linux/errno.h>
 #include <linux/module.h>
@@ -1641,5 +1641,31 @@ extern int __kc_adapter_clean(struct net_device *, int *);
 #if ( LINUX_VERSION_CODE < KERNEL_VERSION(2,6,26) )
 #endif /* < 2.6.26 */
 
+/*****************************************************************************/
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(6,3,3) )
+#define PM_QOS_CPU_DMA_LATENCY	1
+
+#if ( LINUX_VERSION_CODE > KERNEL_VERSION(2,6,18) )
+#include <linux/latency.h>
+#define PM_QOS_DEFAULT_VALUE	INFINITE_LATENCY
+#define pm_qos_add_requirement(pm_qos_class, name, value) \
+		set_acceptable_latency(name, value)
+#define pm_qos_remove_requirement(pm_qos_class, name) \
+		remove_acceptable_latency(name)
+#define pm_qos_update_requirement(pm_qos_class, name, value) \
+		modify_acceptable_latency(name, value)
+#else
+#define PM_QOS_DEFAULT_VALUE	-1
+#define pm_qos_add_requirement(pm_qos_class, name, value)
+#define pm_qos_remove_requirement(pm_qos_class, name)
+#define pm_qos_update_requirement(pm_qos_class, name, value) { \
+	if (value != PM_QOS_DEFAULT_VALUE) { \
+		printk(KERN_WARNING "%s: unable to set PM QoS requirement\n", \
+			pci_name(adapter->pdev)); \
+	} \
+}
+#endif /* > 2.6.18 */
+
+#endif /* < 2.6.25 */
 
 #endif /* _KCOMPAT_H_ */
