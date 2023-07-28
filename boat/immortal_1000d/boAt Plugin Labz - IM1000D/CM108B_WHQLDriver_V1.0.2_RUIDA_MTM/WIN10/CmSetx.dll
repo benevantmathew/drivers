@@ -1,0 +1,4 @@
+[SETUP]
+ATYPE=C108B_MTM
+INI_PATH=SoftwareDriver\InI
+SupportOS=WIN10

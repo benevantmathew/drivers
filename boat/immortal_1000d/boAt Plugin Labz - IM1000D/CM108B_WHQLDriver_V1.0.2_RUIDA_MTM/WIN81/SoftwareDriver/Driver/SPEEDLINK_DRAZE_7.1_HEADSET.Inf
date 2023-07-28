@@ -1,0 +1,425 @@
+;
+;MTM Technology SPEEDLINK_DRAZE_7.1_HEADSET Driver
+;
+
+[Version]
+signature="$WINDOWS NT$"
+Class=Media
+ClassGUID={4d36e96c-e325-11ce-bfc1-08002be10318}
+Provider=%CMEDIA%
+Catalogfile=SPEEDLINK_DRAZE_7.1_HEADSET.cat
+DriverVer=04/06/2021,8.1.1.2
+
+[SourceDisksNames]
+1000=%cdname%,,,
+
+[SourceDisksFiles.x86]
+CM108B_MTM.sys=1000,\x86
+CMEFFECTAPO_MTM.dll=1000,\x86
+CMCPLEXT_MTM.dll=1000,\x86
+
+[SourceDisksFiles.amd64]
+CM108B_MTM.sys=1000,\x64
+CMEFFECTAPO_MTM.dll=1000,\x64
+CMCPLEXT_MTM.dll=1000,\x64
+
+[SignatureAttributes]
+CM108B_MTM.sys=SignatureAttributes.DRM
+CMEFFECTAPO_MTM.dll=SignatureAttributes.PETrust
+CMCPLEXT_MTM.dll=SignatureAttributes.PETrust
+
+[SignatureAttributes.DRM]
+DRMLevel=1300
+
+[SignatureAttributes.PETrust]
+PETrust=true
+
+[DestinationDirs]
+DefaultDestDir=12
+CM108B_MTM.CopyFiles=12
+CMEFFECTAPO_MTM.CopyFiles=11
+
+[Manufacturer]
+%ManufacturerString%=ManufacturerID,NTamd64
+
+[ManufacturerID]
+%SPEEDLINK_DRAZE_7.1_HEADSET.DeviceDesc%=SPEEDLINK_DRAZE_7.1_HEADSET,USB\VID_33B4&PID_1000&MI_00
+
+[ManufacturerID.NTamd64]
+%SPEEDLINK_DRAZE_7.1_HEADSET.DeviceDesc%=SPEEDLINK_DRAZE_7.1_HEADSET,USB\VID_33B4&PID_1000&MI_00
+
+;---------------------------------------------------------------
+;                x 86  D D I n s t a l l
+;---------------------------------------------------------------
+
+[SPEEDLINK_DRAZE_7.1_HEADSET]
+Include=ks.inf, wdmaudio.inf
+Needs=KS.Registration, WDMAUDIO.Registration,mssysfx.CopyFilesAndRegister
+DelReg=SPEEDLINK_DRAZE_7.1_HEADSET.DelReg
+AddReg=SPEEDLINK_DRAZE_7.1_HEADSET.AddReg, SPEEDLINK_DRAZE_7.1_HEADSET_NAMES.AddReg, SfxFx.AddReg
+AddProperty=SPEEDLINK_DRAZE_7.1_HEADSETBranding.AddProperty
+CopyFiles=CM108B_MTM.CopyFiles, CMEFFECTAPO_MTM.CopyFiles
+
+;---------------------------------------------------------------
+;                x 64  D D I n s t a l l
+;---------------------------------------------------------------
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.NTamd64]
+Include=ks.inf, wdmaudio.inf
+Needs=KS.Registration, WDMAUDIO.Registration,mssysfx.CopyFilesAndRegister
+DelReg=SPEEDLINK_DRAZE_7.1_HEADSET.DelReg
+AddReg=SPEEDLINK_DRAZE_7.1_HEADSET.AddReg, SPEEDLINK_DRAZE_7.1_HEADSET_NAMES.AddReg, SfxFx.AddReg
+AddProperty=SPEEDLINK_DRAZE_7.1_HEADSETBranding.AddProperty
+CopyFiles=CM108B_MTM.CopyFiles, CMEFFECTAPO_MTM.CopyFiles
+
+[SPEEDLINK_DRAZE_7.1_HEADSETBranding.AddProperty]
+DeviceVendorWebSite,,,,"www.mtm-t.com" ; Place your URL here
+
+;---------------------------------------------------------------
+;                I n t e r f a c e s
+;---------------------------------------------------------------
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_SPEAKER.WAVE%,Audio.I.SPEAKER.WAVE
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_SPEAKER.WAVE%,Audio.I.SPEAKER.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_SPDIFOUT.WAVE%,Audio.I.SPDIFOUT.WAVE
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_SPDIFOUT.WAVE%,Audio.I.SPDIFOUT.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_HPOUT.WAVE%,Audio.I.HPOUT.WAVE
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_HPOUT.WAVE%,Audio.I.HPOUT.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_RECIN.WAVE%,Audio.I.RECIN.WAVE
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_RECIN.WAVE%,Audio.I.RECIN.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_MICIN.WAVE%,Audio.I.MICIN.WAVE
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_MICIN.WAVE%,Audio.I.MICIN.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_LINEIN.WAVE%,Audio.I.LINEIN.WAVE
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_LINEIN.WAVE%,Audio.I.LINEIN.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_SPDIFIN.WAVE%,Audio.I.SPDIFIN.WAVE
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_SPDIFIN.WAVE%,Audio.I.SPDIFIN.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_GLOBAL.TOPO%,Audio.I.GLOBAL.TOPO
+AddInterface=%KSCATEGORY_TOPOLOGY%,%KSNAME_GLOBAL.TOPO%,Audio.I.GLOBAL.TOPO
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.NTamd64.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_SPEAKER.WAVE%,Audio.I.SPEAKER.WAVE
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_SPEAKER.WAVE%,Audio.I.SPEAKER.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_SPDIFOUT.WAVE%,Audio.I.SPDIFOUT.WAVE
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_SPDIFOUT.WAVE%,Audio.I.SPDIFOUT.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_HPOUT.WAVE%,Audio.I.HPOUT.WAVE
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_HPOUT.WAVE%,Audio.I.HPOUT.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_RECIN.WAVE%,Audio.I.RECIN.WAVE
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_RECIN.WAVE%,Audio.I.RECIN.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_MICIN.WAVE%,Audio.I.MICIN.WAVE
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_MICIN.WAVE%,Audio.I.MICIN.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_LINEIN.WAVE%,Audio.I.LINEIN.WAVE
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_LINEIN.WAVE%,Audio.I.LINEIN.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_SPDIFIN.WAVE%,Audio.I.SPDIFIN.WAVE
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_SPDIFIN.WAVE%,Audio.I.SPDIFIN.WAVE
+
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_GLOBAL.TOPO%,Audio.I.GLOBAL.TOPO
+AddInterface=%KSCATEGORY_TOPOLOGY%,%KSNAME_GLOBAL.TOPO%,Audio.I.GLOBAL.TOPO
+
+[Audio.I.SPEAKER.WAVE]
+AddReg=SPEEDLINK_DRAZE_7.1_HEADSET.I.SPEAKER.WAVE.AddReg
+
+[Audio.I.SPDIFOUT.WAVE]
+AddReg=SPEEDLINK_DRAZE_7.1_HEADSET.I.SPDIFOUT.WAVE.AddReg
+
+[Audio.I.HPOUT.WAVE]
+AddReg=SPEEDLINK_DRAZE_7.1_HEADSET.I.HPOUT.WAVE.AddReg
+
+[Audio.I.RECIN.WAVE]
+AddReg=SPEEDLINK_DRAZE_7.1_HEADSET.I.RECIN.WAVE.AddReg
+
+[Audio.I.MICIN.WAVE]
+AddReg=SPEEDLINK_DRAZE_7.1_HEADSET.I.MICIN.WAVE.AddReg
+
+[Audio.I.LINEIN.WAVE]
+AddReg=SPEEDLINK_DRAZE_7.1_HEADSET.I.LINEIN.WAVE.AddReg
+
+[Audio.I.SPDIFIN.WAVE]
+AddReg=SPEEDLINK_DRAZE_7.1_HEADSET.I.SPDIFIN.WAVE.AddReg
+
+[Audio.I.GLOBAL.TOPO]
+AddReg=SPEEDLINK_DRAZE_7.1_HEADSET.I.GLOBAL.TOPO.AddReg, SysFx.AddReg, SPEEDLINK_DRAZE_7.1_HEADSET.EPProperties.AddReg
+
+;---------------------------------------------------------------
+;                A d d R e g
+;---------------------------------------------------------------
+[SPEEDLINK_DRAZE_7.1_HEADSET.AddReg]
+HKR,,Driver,,CM108B_MTM.sys
+HKR,,AssociatedFilters,,"wdmaud,redbook"
+HKR,Drivers,SubClasses,,"wave,midi,mixer"
+HKR,Drivers\wave\wdmaud.drv, Driver,,wdmaud.drv
+HKR,Drivers\midi\wdmaud.drv, Driver,,wdmaud.drv
+HKR,Drivers\mixer\wdmaud.drv,Driver,,wdmaud.drv
+HKR,Drivers\wave\wdmaud.drv,Description,,%SPEEDLINK_DRAZE_7.1_HEADSET.Audio.DeviceDesc%
+HKR,Drivers\midi\wdmaud.drv,Description,,%SPEEDLINK_DRAZE_7.1_HEADSET.Audio.DeviceDesc%
+HKR,Drivers\mixer\wdmaud.drv,Description,,%SPEEDLINK_DRAZE_7.1_HEADSET.Audio.DeviceDesc%
+
+[SPEEDLINK_DRAZE_7.1_HEADSET_NAMES.AddReg]
+HKLM,%MediaCategories%\%SPEEDLINK_DRAZE_7.1_HEADSETGUID.SpdifOut%,Name,,%SPEEDLINK_DRAZE_7.1_HEADSETNode.SpdifOut%
+HKLM,%MediaCategories%\%SPEEDLINK_DRAZE_7.1_HEADSETGUID.SpdifOut%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%SPEEDLINK_DRAZE_7.1_HEADSETGUID.SpdifIn%,Name,,%SPEEDLINK_DRAZE_7.1_HEADSETNode.SpdifIn%
+HKLM,%MediaCategories%\%SPEEDLINK_DRAZE_7.1_HEADSETGUID.SpdifIn%,Display,1,00,00,00,00
+
+HKLM,%MediaCategories%\%HDAGuidStereoMixPin%,Name,,%HDAStereoMixPinName%
+HKLM,%MediaCategories%\%HDAGuidStereoMixPin%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%HDAGuidAuxInPin%,Name,,%HDAAuxInPinName%
+HKLM,%MediaCategories%\%HDAGuidAuxInPin%,Display,1,00,00,00,00
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.I.SPEAKER.WAVE.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SPEEDLINK_DRAZE_7.1_HEADSET.SPEAKER.WAVE.szPname%
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.I.SPDIFOUT.WAVE.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SPEEDLINK_DRAZE_7.1_HEADSET.SPDIFOUT.WAVE.szPname%
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.I.HPOUT.WAVE.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SPEEDLINK_DRAZE_7.1_HEADSET.HPOUT.WAVE.szPname%
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.I.RECIN.WAVE.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SPEEDLINK_DRAZE_7.1_HEADSET.RECIN.WAVE.szPname%
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.I.MICIN.WAVE.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SPEEDLINK_DRAZE_7.1_HEADSET.MICIN.WAVE.szPname%
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.I.LINEIN.WAVE.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SPEEDLINK_DRAZE_7.1_HEADSET.LINEIN.WAVE.szPname%
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.I.SPDIFIN.WAVE.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SPEEDLINK_DRAZE_7.1_HEADSET.SPDIFIN.WAVE.szPname%
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.I.GLOBAL.TOPO.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SPEEDLINK_DRAZE_7.1_HEADSET.GLOBAL.TOPO.szPname%
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.EPProperties.AddReg]
+HKR,"EP\\0",%PKEY_AudioEndpoint_Association%,,%KSNODETYPE_ANY%
+HKR,"EP\\0",%PKEY_AudioEndpoint_Supports_EventDriven_Mode%,0x00010001,0x1
+
+[SysFx.AddReg]
+HKR,"FX\\0",%PKEY_ItemNameDisplay%,,%SYSFX_FriendlyName%
+HKR,"FX\\0",%PKEY_FX_UiClsid%,,%SYSFX_UI_CLSID%
+HKR,"FX\\0",%PKEY_FX_StreamEffectClsid%,,%SYSFX_STREAM_CLSID%
+HKR,"FX\\0",%PKEY_FX_ModeEffectClsid%,,%SYSFX_MODE_CLSID%
+HKR,"FX\\0",%PKEY_SFX_ProcessingModes_Supported_For_Streaming%,0x00010000,%AUDIO_SIGNALPROCESSINGMODE_DEFAULT%
+HKR,"FX\\0",%PKEY_MFX_ProcessingModes_Supported_For_Streaming%,0x00010000,%AUDIO_SIGNALPROCESSINGMODE_DEFAULT%
+HKR,"FX\\0",%PKEY_FX_Association%,,%KSNODETYPE_SPEAKER%
+
+HKR,"FX\\1",%PKEY_ItemNameDisplay%,,%SYSFX_FriendlyName%
+HKR,"FX\\1",%PKEY_FX_UiClsid%,,%SYSFX_UI_CLSID%
+HKR,"FX\\1",%PKEY_FX_StreamEffectClsid%,,%SYSFX_STREAM_CLSID%
+HKR,"FX\\1",%PKEY_FX_ModeEffectClsid%,,%SYSFX_MODE_CLSID%
+HKR,"FX\\1",%PKEY_SFX_ProcessingModes_Supported_For_Streaming%,0x00010000,%AUDIO_SIGNALPROCESSINGMODE_DEFAULT%
+HKR,"FX\\1",%PKEY_MFX_ProcessingModes_Supported_For_Streaming%,0x00010000,%AUDIO_SIGNALPROCESSINGMODE_DEFAULT%
+HKR,"FX\\1",%PKEY_FX_Association%,,%KSNODETYPE_HEADPHONES%
+
+HKR,"FX\\2",%PKEY_ItemNameDisplay%,,%SYSFX_FriendlyName%
+HKR,"FX\\2",%PKEY_FX_UiClsid%,,%SYSFX_UI_CLSID%
+HKR,"FX\\2",%PKEY_FX_StreamEffectClsid%,,%SYSFX_STREAM_CLSID%
+HKR,"FX\\2",%PKEY_FX_ModeEffectClsid%,,%SYSFX_MODE_CLSID%
+HKR,"FX\\2",%PKEY_SFX_ProcessingModes_Supported_For_Streaming%,0x00010000,%AUDIO_SIGNALPROCESSINGMODE_DEFAULT%
+HKR,"FX\\2",%PKEY_MFX_ProcessingModes_Supported_For_Streaming%,0x00010000,%AUDIO_SIGNALPROCESSINGMODE_DEFAULT%
+HKR,"FX\\2",%PKEY_FX_Association%,,%KSNODETYPE_SPDIF_INTERFACE%
+
+HKR,"FX\\3",%PKEY_ItemNameDisplay%,,%SYSFX_FriendlyName%
+HKR,"FX\\3",%PKEY_FX_UiClsid%,,%SYSFX_UI_CLSID%
+HKR,"FX\\3",%PKEY_FX_StreamEffectClsid%,,%SYSFX_STREAM_CLSID%
+HKR,"FX\\3",%PKEY_SFX_ProcessingModes_Supported_For_Streaming%,0x00010000,%AUDIO_SIGNALPROCESSINGMODE_DEFAULT%
+HKR,"FX\\3",%PKEY_FX_Association%,,%KSNODETYPE_MICROPHONE%
+
+HKR,"FX\\4",%PKEY_ItemNameDisplay%,,%SYSFX_FriendlyName%
+HKR,"FX\\4",%PKEY_FX_UiClsid%,,%SYSFX_UI_CLSID%
+HKR,"FX\\4",%PKEY_FX_StreamEffectClsid%,,%SYSFX_STREAM_CLSID%
+HKR,"FX\\4",%PKEY_SFX_ProcessingModes_Supported_For_Streaming%,0x00010000,%AUDIO_SIGNALPROCESSINGMODE_DEFAULT%
+HKR,"FX\\4",%PKEY_FX_Association%,,%KSNODETYPE_DESKTOP_MICROPHONE%
+
+[SfxFx.AddReg]
+HKCR,CLSID\%SYSFX_MODE_CLSID%,,,"CMEffect Class (Global)"
+HKCR,CLSID\%SYSFX_MODE_CLSID%\InProcServer32,,0x00020000,%%SystemRoot%%\System32\CMEFFECTAPO_MTM.dll
+HKCR,CLSID\%SYSFX_MODE_CLSID%\InProcServer32,ThreadingModel,,"Both"
+
+HKCR,CLSID\%SYSFX_STREAM_CLSID%,,,"CMEffect Class (Local)"
+HKCR,CLSID\%SYSFX_STREAM_CLSID%\InProcServer32,,0x00020000,%%SystemRoot%%\System32\CMEFFECTAPO_MTM.dll
+HKCR,CLSID\%SYSFX_STREAM_CLSID%\InProcServer32,ThreadingModel,,"Both"
+
+HKCR,CLSID\%SYSFX_UI_CLSID%,,,"CMEffect PropPageExt Class"
+HKCR,CLSID\%SYSFX_UI_CLSID%\InProcServer32,,0x00020000,%%SystemRoot%%\System32\CMCPLEXT_MTM.dll
+HKCR,CLSID\%SYSFX_UI_CLSID%\InProcServer32,ThreadingModel,,"Apartment"
+
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_MODE_CLSID%, "FriendlyName", ,"Global CMEffect Class"
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_MODE_CLSID%, "Copyright", ,"Copyright (c) C-Media Electronics Inc. All Rights Reserved"
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_MODE_CLSID%, "MajorVersion", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_MODE_CLSID%, "MinorVersion", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_MODE_CLSID%, "Flags", %REG_DWORD%, 0x00000004
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_MODE_CLSID%, "MinInputConnections", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_MODE_CLSID%, "MaxInputConnections", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_MODE_CLSID%, "MinOutputConnections", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_MODE_CLSID%, "MaxOutputConnections", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_MODE_CLSID%, "MaxInstances", %REG_DWORD%, 0xffffffff
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_MODE_CLSID%, "NumAPOInterfaces", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_MODE_CLSID%, "APOInterface0", ,"{FD7F2B29-24D0-4B5C-B177-592C39F9CA10}"
+
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_STREAM_CLSID%, "FriendlyName", ,"Local CMEffect Class"
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_STREAM_CLSID%, "Copyright", ,"Copyright (c) C-Media Electronics Inc. All Rights Reserved"
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_STREAM_CLSID%, "MajorVersion", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_STREAM_CLSID%, "MinorVersion", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_STREAM_CLSID%, "Flags", %REG_DWORD%, 0x0000000c
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_STREAM_CLSID%, "MinInputConnections", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_STREAM_CLSID%, "MaxInputConnections", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_STREAM_CLSID%, "MinOutputConnections", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_STREAM_CLSID%, "MaxOutputConnections", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_STREAM_CLSID%, "MaxInstances", %REG_DWORD%, 0xffffffff
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_STREAM_CLSID%, "NumAPOInterfaces", %REG_DWORD%, 1
+HKCR,AudioEngine\AudioProcessingObjects\%SYSFX_STREAM_CLSID%, "APOInterface0", ,"{FD7F2B29-24D0-4B5C-B177-592C39F9CA10}"
+
+
+;---------------------------------------------------------------
+;                D e l R e g
+;---------------------------------------------------------------
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.DelReg]
+HKR,Settings
+
+;---------------------------------------------------------------
+;                S e r v i c e s  
+;---------------------------------------------------------------
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.Services]
+AddService=CM108B_MTM, 0x00000002, CM108B_MTM.ServiceInstall
+
+[SPEEDLINK_DRAZE_7.1_HEADSET.NTamd64.Services]
+AddService=CM108B_MTM, 0x00000002, CM108B_MTM.ServiceInstall
+
+[CM108B_MTM.ServiceInstall]
+DisplayName=%SPEEDLINK_DRAZE_7.1_HEADSET.SvcDesc%
+ServiceType=%SERVICE_KERNEL_DRIVER%
+StartType=%SERVICE_DEMAND_START%
+ErrorControl=%SERVICE_ERROR_NORMAL%
+ServiceBinary=%12%\CM108B_MTM.sys
+
+;---------------------------------------------------------------
+;                Copy Files
+;---------------------------------------------------------------
+
+[CM108B_MTM.CopyFiles]
+CM108B_MTM.SYS
+
+[CMEFFECTAPO_MTM.CopyFiles]
+CMEFFECTAPO_MTM.dll
+CMCPLEXT_MTM.dll
+
+;---------------------------------------------------------------
+;                S t r i n g s
+;---------------------------------------------------------------
+
+[Strings]
+; non-localizeable
+Proxy.CLSID="{17CCA71B-ECD7-11D0-B908-00A0C9223196}"
+KSCATEGORY_RENDER="{65E8773E-8F56-11D0-A3B9-00A0C9223196}"
+KSCATEGORY_CAPTURE="{65E8773D-8F56-11D0-A3B9-00A0C9223196}"
+KSCATEGORY_AUDIO="{6994AD04-93EF-11D0-A3CC-00A0C9223196}"
+KSCATEGORY_TOPOLOGY = "{DDA54A40-1E4C-11D1-A050-405705C10000}" ; non-localizable
+KSCATEGORY_REALTIME = "{EB115FFC-10C8-4964-831D-6DCB02E6F23F}" ; non-localizable
+
+KSNAME_SPEAKER.WAVE="SPKOut00Wave"
+KSNAME_SPDIFOUT.WAVE="SPDIFOut00Wave"
+KSNAME_HPOUT.WAVE="HPOut00Wave"
+KSNAME_RECIN.WAVE="RecIn00Wave"
+KSNAME_MICIN.WAVE="MicIn00Wave"
+KSNAME_LINEIN.WAVE="LineIn00Wave"
+KSNAME_SPDIFIN.WAVE="SPDIFIn00Wave"
+KSNAME_GLOBAL.TOPO="GlobalTopo"
+
+SERVICE_KERNEL_DRIVER=1
+SERVICE_DEMAND_START=3
+SERVICE_ERROR_NORMAL=1
+REG_DWORD=0x00010001
+
+MediaCategories="SYSTEM\CurrentControlSet\Control\MediaCategories"
+
+;localizeable
+SPEEDLINK_DRAZE_7.1_HEADSETGUID.SpdifOut="{12C15946-BA58-42c1-9F11-8341E2198622}"
+SPEEDLINK_DRAZE_7.1_HEADSETGUID.SpdifIn	="{017D895C-7AE7-4f4d-B78C-CD1FFC0CE776}"
+HDAGuidStereoMixPin 		="{8c5716e6-c984-492e-a2fb-1385f2d0f3c9}"
+HDAGuidAuxInPin 		="{5f4bb488-a646-408a-9265-8647f9c374d4}"
+
+CMEDIA="C-MEDIA Inc."
+ManufacturerString="MTM Technology"
+SPEEDLINK_DRAZE_7.1_HEADSET.DeviceDesc="SPEEDLINK_DRAZE_7.1_HEADSET"
+SPEEDLINK_DRAZE_7.1_HEADSET.SvcDesc="CM108B_MTM"
+SPEEDLINK_DRAZE_7.1_HEADSET.SPEAKER.WAVE.szPname="Speaker"
+SPEEDLINK_DRAZE_7.1_HEADSET.SPDIFOUT.WAVE.szPname="SpdifOut"
+SPEEDLINK_DRAZE_7.1_HEADSET.HPOUT.WAVE.szPname="Headphone"
+SPEEDLINK_DRAZE_7.1_HEADSET.RECIN.WAVE.szPname="Capture"
+SPEEDLINK_DRAZE_7.1_HEADSET.MICIN.WAVE.szPname="MicIn"
+SPEEDLINK_DRAZE_7.1_HEADSET.LINEIN.WAVE.szPname="LineIn"
+SPEEDLINK_DRAZE_7.1_HEADSET.SPDIFIN.WAVE.szPname="SpdifIn"
+SPEEDLINK_DRAZE_7.1_HEADSET.GLOBAL.TOPO.szPname="Global Mixer"
+SPEEDLINK_DRAZE_7.1_HEADSET.Audio.DeviceDesc="SPEEDLINK_DRAZE_7.1_HEADSET Audio"
+cdname="MTM Technology SPEEDLINK_DRAZE_7.1_HEADSET Installation Disk"
+SPEEDLINK_DRAZE_7.1_HEADSETNode.SpdifOut="SPDIF Out"
+SPEEDLINK_DRAZE_7.1_HEADSETNode.SpdifIn="SPDIF In"
+HDAStereoMixPinName="Stereo Mix"
+HDAAuxInPinName="Aux In"
+
+;; These are the name strings for the wave miniports displayed in mmsys.cpl
+;;
+
+KSNODETYPE_ANY                    = "{00000000-0000-0000-0000-000000000000}"
+KSNODETYPE_SPEAKER                = "{DFF21CE1-F70F-11D0-B917-00A0C9223196}"
+KSNODETYPE_LINE_CONNECTOR         = "{DFF21FE3-F70F-11D0-B917-00A0C9223196}"
+KSNODETYPE_HEADSET_SPEAKERS       = "{DFF21CE6-F70F-11D0-B917-00A0C9223196}"
+KSNODETYPE_HEADPHONES             = "{DFF21CE2-F70F-11D0-B917-00A0C9223196}"
+KSNODETYPE_DESKTOP_SPEAKER        = "{DFF21CE4-F70F-11D0-B917-00A0C9223196}"
+KSNODETYPE_SPDIF_INTERFACE        = "{DFF21FE5-F70F-11D0-B917-00A0C9223196}"
+KSNODETYPE_MICROPHONE             = "{DFF21BE1-F70F-11D0-B917-00A0C9223196}"
+KSNODETYPE_DESKTOP_MICROPHONE     = "{DFF21BE2-F70F-11D0-B917-00A0C9223196}"
+;;
+;; PropertyKey GUIDS
+;;
+
+PKEY_FX_Association          = "{D04E05A6-594B-4FB6-A80D-01AF5EED7D1D},0"
+PKEY_FX_UiClsid              = "{D04E05A6-594B-4FB6-A80D-01AF5EED7D1D},3"
+PKEY_FX_StreamEffectClsid    = "{D04E05A6-594B-4fb6-A80D-01AF5EED7D1D},5"
+PKEY_FX_ModeEffectClsid      = "{D04E05A6-594B-4fb6-A80D-01AF5EED7D1D},6"
+PKEY_FX_EndpointEffectClsid  = "{D04E05A6-594B-4fb6-A80D-01AF5EED7D1D},7"
+PKEY_ItemNameDisplay         = "{B725F130-47EF-101A-A5F1-02608C9EEBAC},10"
+
+PKEY_AudioEndpoint_ControlPanelPageProvider = "{1DA5D803-D492-4EDD-8C23-E0C0FFEE7F0E},1"
+PKEY_AudioEndpoint_Association  = "{1DA5D803-D492-4EDD-8C23-E0C0FFEE7F0E},2"
+PKEY_AudioEndpoint_Supports_EventDriven_Mode = "{1DA5D803-D492-4EDD-8C23-E0C0FFEE7F0E},7"
+
+PKEY_SFX_ProcessingModes_Supported_For_Streaming = "{D3993A3F-99C2-4402-B5EC-A92A0367664B},5"
+PKEY_MFX_ProcessingModes_Supported_For_Streaming = "{D3993A3F-99C2-4402-B5EC-A92A0367664B},6"
+
+AUDIO_SIGNALPROCESSINGMODE_DEFAULT = "{C18E2F7E-933D-4965-B7D1-1EEF228D2AF3}"
+		
+PKEY_AudioEngine_OEMFormat = "{E4870E26-3CC5-4CD2-BA46-CA0A9A70ED04},3"
+
+AUDIOENDPOINT_EXT_UI_CLSID = "{6C57B2A2-91F5-4b90-93D5-FAB82485ECA6}"
+
+SYSFX_UI_CLSID      = "{BC273462-B257-4A03-8D3A-3598D9CF6C0F}"
+SYSFX_STREAM_CLSID  = "{3D4F4DFD-6DF6-4B29-AC2D-C5E557D9CFE1}"
+SYSFX_MODE_CLSID    = "{95E16F8B-B727-4C83-9A91-5C051E4415E6}"
+SYSFX_FriendlyName  = "CMedia Audio System Effect"
+
+REG_BINARY          = 0x00000001
+

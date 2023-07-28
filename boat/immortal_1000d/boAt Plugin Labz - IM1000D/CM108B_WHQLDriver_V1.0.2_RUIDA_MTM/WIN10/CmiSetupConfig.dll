@@ -1,0 +1,93 @@
+[COPYFILES_32]
+SoftwareDriver\DLL\CPL\x86\>>>%INSTALLDIR%\CPL\
+
+[COPYFILES_64]
+SoftwareDriver\DLL\CPL\x64\>>>%INSTALLDIR%\CPL\
+
+
+[POSTRUNAPP_INSTALL_32]
+%SETUPDIR%\Program\CmEnhance.exe "%HARDWAREID%" -WAIT
+%SETUPDIR%\Program\CmElv.exe "%INSTALLDIR%\CPL\XearAudioCenter.exe /h /i"
+
+[POSTRUNAPP_INSTALL_64]
+%SETUPDIR%\Program\CmEnhance.exe "%HARDWAREID%" -WAIT
+%SETUPDIR%\Program\CmElv64.exe "%INSTALLDIR%\CPL\XearAudioCenter_x64.exe /h /i"
+
+
+[POSTRUNAPP_BEFOREREMOVEFILE_32]
+%WINDIR%\system32\regsvr32.exe /u /s "%WINDIR%\system32\CMEffectAPO_MTM.dll"
+%WINDIR%\system32\regsvr32.exe /u /s "%WINDIR%\system32\CMCplExt_MTM.dll"
+
+[POSTRUNAPP_BEFOREREMOVEFILE_64]
+%WINDIR%\system32\regsvr32.exe /u /s "%WINDIR%\system32\CMEffectAPO_MTM.dll"
+%WINDIR%\system32\regsvr32.exe /u /s "%WINDIR%\system32\CMCplExt_MTM.dll"
+
+
+[BEFORERUNAPP_REMOVE_32]
+%INSTALLDIR%\CPL\XearAudioCenter.exe /u /q -WAIT
+
+[BEFORERUNAPP_REMOVE_64]
+%INSTALLDIR%\CPL\XearAudioCenter_x64.exe /u /q -WAIT
+
+
+[BEFORERUNAPP_TERMINATE_32]
+
+[BEFORERUNAPP_TERMINATE_64]
+
+
+[POSTDELFILE_REMOVE_32]
+%WINDIR%\System\Dlap.pfx
+%WINDIR%\System32\CmiInstallResAll.dll
+%WINDIR%\system32\CMEffectAPO_MTM.dll
+%WINDIR%\system32\CMCplExt_MTM.dll
+%WINDIR%\system32\Drivers\C108B_MTM.sys
+%WINDIR%\system\C108B_MTM_cpl.ini
+
+[POSTDELFILE_REMOVE_64]
+%WINDIR%\System\Dlap.pfx
+%WINDIR%\System32\CmiInstallResAll64.dll
+%WINDIR%\system32\CMEffectAPO_MTM.dll
+%WINDIR%\system32\CMCplExt_MTM.dll
+%WINDIR%\system32\Drivers\C108B_MTM.sys
+%WINDIR%\system\C108B_MTM_cpl.ini
+
+
+[ADDREG_32]
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}",,,"USB Gaming Headset"
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}","InfoTip",REG_EXPAND_SZ,"Configure your sound card"
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}","System.ApplicationName",,"C108B_MTM.FaceLift"
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}","System.ControlPanel.Category",,"4"
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}","System.Software.TasksFileUrl",,"internal"
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}\DefaultIcon",,,"%WINDIR%\C108B_MTM.ico" -RMREGKEY
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}\Shell\Open\Command",,,"%INSTALLDIR%\CPL\XearAudioCenter.exe" -RMREGKEY
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\NameSpace\{AAB589DD-E764-4BA9-A868-3D7F68F96513}",,,"boAt Plugin Labz" -RMREGKEY
+HKLM,"Software\Microsoft\Windows\CurrentVersion\Run", Cm108BSound, , "~"%INSTALLDIR%\CPL\XearAudioCenter.exe~" /h / d"
+HKLM,"Software\cmitmp\",CMUninstallString,,"%WINDIR%\System32\cmeauC108B_MTM.exe /rm /pC108B_MTM"
+
+[ADDREG_64]
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}",,,"USB Gaming Headset"
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}","InfoTip",REG_EXPAND_SZ,"Configure your sound card"
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}","System.ApplicationName",,"C108B_MTM.FaceLift"
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}","System.ControlPanel.Category",,"4"
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}","System.Software.TasksFileUrl",,"internal"
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}\DefaultIcon",,,"%WINDIR%\C108B_MTM.ico" -RMREGKEY
+HKCR,"CLSID\{AAB589DD-E764-4BA9-A868-3D7F68F96513}\Shell\Open\Command",,,"%INSTALLDIR%\CPL\XearAudioCenter_x64.exe" -RMREGKEY
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\NameSpace\{AAB589DD-E764-4BA9-A868-3D7F68F96513}",,,"boAt Plugin Labz" -RMREGKEY
+HKLM,"Software\Microsoft\Windows\CurrentVersion\Run", Cm108BSound, , "~"%INSTALLDIR%\CPL\XearAudioCenter_x64.exe~" /h /d"
+HKLM,"Software\Wow6432Node\cmitmp\",CMUninstallString,,"%WINDIR%\System32\cmeauC108B_MTM.exe /rm /pC108B_MTM"
+
+
+[ADDSTARTPROGRAM_32]
+boAt Plugin Labz,%INSTALLDIR%\CPL\XearAudioCenter.exe,,,"boAt Plugin Labz",%WINDIR%\C108B_MTM.ico
+
+[ADDSTARTPROGRAM_64]
+boAt Plugin Labz,%INSTALLDIR%\CPL\XearAudioCenter_x64.exe,,,"boAt Plugin Labz",%WINDIR%\C108B_MTM.ico
+
+
+[ADDSHORTCUT_32]
+"%INSTALLDIR%\CPL\XearAudioCenter.exe",,%DESKTOPDIR%,"boAt Plugin Labz",%WINDIR%\C108B_MTM.ico
+
+[ADDSHORTCUT_64]
+"%INSTALLDIR%\CPL\XearAudioCenter_x64.exe",,%DESKTOPDIR%,"boAt Plugin Labz",%WINDIR%\C108B_MTM.ico
+
+
