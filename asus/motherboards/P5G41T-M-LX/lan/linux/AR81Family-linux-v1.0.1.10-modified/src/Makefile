@@ -25,6 +25,7 @@
 # core driver files
 CFILES = at_common_main.c atl1e_main.c atl1c_main.c atl1c_hw.c atl1e_hw.c atl1e_param.c \
 	 atl1c_param.c atl1e_ethtool.c atl1c_ethtool.c kcompat.c\
+	 kcompat_ethtool.c
 
 HFILES = at_common.h atl1e.h atl1c.h atl1e_hw.h atl1c_hw.h at_osdep.h kcompat.h
 
@@ -40,15 +41,14 @@ DRIVER_NAME = atl1e
 
 # Kernel Search Path
 # All the places we look for kernel source
-# KSP :=  /lib/modules/$(BUILD_KERNEL)/build \
-#         /lib/modules/$(BUILD_KERNEL)/source \
-#         /usr/src/linux-$(BUILD_KERNEL) \
-#         /usr/src/linux-$($(BUILD_KERNEL) | sed 's/-.*//') \
-#         /usr/src/kernel-headers-$(BUILD_KERNEL) \
-#         /usr/src/kernel-source-$(BUILD_KERNEL) \
-#         /usr/src/linux-$($(BUILD_KERNEL) | sed 's/\([0-9]*\.[0-9]*\)\..*/\1/') \
-#         /usr/src/linux
-KSP :=  /home/benevantmathew/kernelbuild/linux-6.3.3
+KSP :=  /lib/modules/$(BUILD_KERNEL)/build \
+        /lib/modules/$(BUILD_KERNEL)/source \
+        /usr/src/linux-$(BUILD_KERNEL) \
+        /usr/src/linux-$($(BUILD_KERNEL) | sed 's/-.*//') \
+        /usr/src/kernel-headers-$(BUILD_KERNEL) \
+        /usr/src/kernel-source-$(BUILD_KERNEL) \
+        /usr/src/linux-$($(BUILD_KERNEL) | sed 's/\([0-9]*\.[0-9]*\)\..*/\1/') \
+        /usr/src/linux
 
 # prune the list down to only values that exist
 # and have an include/linux sub-directory
@@ -127,6 +127,8 @@ ifeq (,$(CC))
   $(error Compiler not found)
 endif
 
+$(info CC: $(CC))
+
 # we need to know what platform the driver is being built on
 # some additional features are only built on Intel platforms
 ARCH := $(shell uname -m | sed 's/i.86/i386/')
@@ -157,7 +159,10 @@ EXTRA_CFLAGS += $(shell [ -f $(KSRC)/include/linux/modversions.h ] && \
 
 EXTRA_CFLAGS += $(CFLAGS_EXTRA) -fno-pie
 
+$(info EXTRA_CFLAGS: $(EXTRA_CFLAGS))
+
 RHC := $(KSRC)/include/linux/rhconfig.h
+
 ifneq (,$(wildcard $(RHC)))
   # 7.3 typo in rhconfig.h
   ifneq (,$(shell $(CC) $(EXTRA_CFLAGS) -E -dM $(RHC) | grep __module__bigmem))
@@ -165,9 +170,13 @@ ifneq (,$(wildcard $(RHC)))
   endif
 endif
 
+$(info EXTRA_CFLAGS: $(EXTRA_CFLAGS))
+
 # get the kernel version - we use this to find the correct install path
 KVER := $(shell $(CC) $(EXTRA_CFLAGS) -E -dM $(VERSION_FILE) | grep UTS_RELEASE | \
         awk '{ print $$3 }' | sed 's/\"//g')
+
+$(info KVER: $(KVER))
 
 # assume source symlink is the same as build, otherwise adjust KOBJ
 ifneq (,$(wildcard /lib/modules/$(KVER)/build))
@@ -178,6 +187,10 @@ endif
 
 KKVER := $(shell echo $(KVER) | \
          awk '{ if ($$0 ~ /^(2\.[4-9]\.|6\.3\.)\d+\./) print "1"; else print "0"}')
+
+
+$(info KKVER: $(KKVER))
+
 ifeq ($(KKVER), 0)
   $(error *** Aborting the build. \
           *** This driver is not supported on kernel versions older than 2.4.0)
