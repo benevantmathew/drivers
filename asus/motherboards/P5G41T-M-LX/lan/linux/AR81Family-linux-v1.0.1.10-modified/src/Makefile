@@ -32,6 +32,8 @@ ifeq (,$(BUILD_KERNEL))
 BUILD_KERNEL=$(shell uname -r)
 endif
 
+$(info build_kernel: $(BUILD_KERNEL))
+
 DRIVER_NAME = atl1e
 ###########################################################################
 # Environment tests
@@ -53,10 +55,14 @@ KSP :=  /home/benevantmathew/kernelbuild/linux-6.3.3
 test_dir = $(shell [ -e $(dir)/include/linux ] && echo $(dir))
 KSP := $(foreach dir, $(KSP), $(test_dir))
 
+$(info KSPs: $(KSP))
+
 # we will use this first valid entry in the search path
 ifeq (,$(KSRC))
   KSRC := $(firstword $(KSP))
 endif
+
+$(info KSRC: $(KSRC))
 
 ifeq (,$(KSRC))
   $(error Linux kernel source not found)
@@ -67,6 +73,8 @@ else
   KOBJ :=  $(KSRC)
 endif
 endif
+
+$(info KOBJ: $(KOBJ))
 
 # check for version.h and autoconf.h for running kernel in /boot (SUSE)
 ifneq (,$(wildcard /boot/vmlinuz.version.h))
@@ -82,16 +90,16 @@ ifneq (,$(wildcard /boot/vmlinuz.version.h))
     x:=$(shell cp /boot/vmlinuz.autoconf.h include/linux/autoconf.h)
     EXTRA_CFLAGS += -I./include
   else
-    ifneq (,$(wildcard $(KOBJ)/include/linux/utsrelease.h))
-      VERSION_FILE := $(KOBJ)/include/linux/utsrelease.h
+    ifneq (,$(wildcard $(KOBJ)/include/generated/utsrelease.h))
+      VERSION_FILE := $(KOBJ)/include/generated/utsrelease.h
     else
       VERSION_FILE := $(KOBJ)/include/generated/uapi/linux/version.h
     endif
     CONFIG_FILE  := $(KSRC)/include/generated/autoconf.h
   endif
 else
-  ifneq (,$(wildcard $(KOBJ)/include/linux/utsrelease.h))
-    VERSION_FILE := $(KOBJ)/include/linux/utsrelease.h
+  ifneq (,$(wildcard $(KOBJ)/include/generated/utsrelease.h))
+    VERSION_FILE := $(KOBJ)/include/generated/utsrelease.h
   else
     VERSION_FILE := $(KOBJ)/include/generated/uapi/linux/version.h
   endif
@@ -169,11 +177,11 @@ endif
 endif
 
 KKVER := $(shell echo $(KVER) | \
-         awk '{ if ($$0 ~ /2\.[4-9]\./) print "1"; else print "0"}')
-# ifeq ($(KKVER), 0)
-#   $(error *** Aborting the build. \
-#           *** This driver is not supported on kernel versions older than 2.4.0)
-# endif
+         awk '{ if ($$0 ~ /^(2\.[4-9]\.|6\.3\.)\d+\./) print "1"; else print "0"}')
+ifeq ($(KKVER), 0)
+  $(error *** Aborting the build. \
+          *** This driver is not supported on kernel versions older than 2.4.0)
+endif
 
 # set the install path
 INSTDIR := /lib/modules/$(KVER)/kernel/drivers/net/$(DRIVER_NAME)
